@@ -75,7 +75,9 @@ Download ERA5 single-level reanalysis data for a specified variable and year.
 
 ## Example:
 ```julia
-download_single_level_data(2020, "temperature_2020.nc", "2m_temperature")
+#download_single_level_data(2015, "temperature_2015.nc", "2m_temperature")
+
+
 ```
 """
 function download_single_level_data(
@@ -197,7 +199,8 @@ Open and concatenate multiple NetCDF files along the time dimension for a specif
 
 ## Example:
 ```julia
-data_dict = open_mfdataset(["file1.nc", "file2.nc", "file3.nc"], "temperature")
+data_dict = open_mfdataset(["data/raw/2m_temperature_2000.nc", "data/raw/2m_temperature_2001.nc", "data/raw/2m_temperature_2002.nc", "data/raw/2m_temperature_2003.nc", "data/raw/2m_temperature_2004.nc", "data/raw/2m_temperature_2005.nc","data/raw/2m_temperature_2006.nc", "data/raw/2m_temperature_2007.nc", "data/raw/2m_temperature_2008.nc", "data/raw/2m_temperature_2009.nc", "data/raw/2m_temperature_2010.nc", "data/raw/2m_temperature_2011.nc", "data/raw/2m_temperature_2012.nc", "data/raw/2m_temperature_2013.nc", "data/raw/2m_temperature_2014.nc", "data/raw/2m_temperature_2015.nc", "data/raw/2m_temperature_2016.nc", "data/raw/2m_temperature_2017.nc", "data/raw/2m_temperature_2018.nc", "data/raw/2m_temperature_2019.nc", "data/raw/2m_temperature_2020.nc"], "t2m")
+ds_temp = reshape(data_dict[:"t2m"], 66, 27, length(data_dict[:"time"]))
 ```
 """
 function open_mfdataset(files::Vector{String}, variable_name::AbstractString)
@@ -269,7 +272,7 @@ function run_demo()
     # the path to the raw data folder
     data_dir = joinpath(HOMEDIR, "data", "raw")
 
-    years = 2019:2020 # example time range
+    years = 2000:2009 # example time range
     for year in years
 
         # Download 2m air temperature for the year 2020
